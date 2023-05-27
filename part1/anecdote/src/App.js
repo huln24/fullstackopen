@@ -41,9 +41,8 @@ const App = () => {
   const updateMostVoted = (arr) => {
     let max = 0
     let maxIndex = 0
-    let length = Object.keys(arr).length
 
-    for (let i = 0; i < length; i += 1) {
+    for (let i = 0; i < arr.length; i += 1) {
       if (arr[i] > max) {
         max = arr[i]
         maxIndex = i
@@ -54,10 +53,9 @@ const App = () => {
   }
 
   const updateVote = () => {
-    const newVote = {
-      ...votes,
-      [selected]: votes[selected] + 1
-    }
+    const newVote = [...votes];
+    newVote[selected] += 1;
+
     updateMostVoted(newVote)
     setVotes(newVote) 
   }
