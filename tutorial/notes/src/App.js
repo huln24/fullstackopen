@@ -20,10 +20,10 @@ const Footer = () => {
 
 
 const App = () => {
-  const [notes, setNotes] = useState([])
+  const [notes, setNotes] = useState(null)
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
-  const [errorMessage, setErrorMessage] = useState('some error appened...')
+  const [errorMessage, setErrorMessage] = useState('some error happened...')
 
   useEffect(() => {
     noteService
@@ -32,6 +32,11 @@ const App = () => {
         setNotes(initialNotes)
       })
   }, [])
+
+  // do not render anything if notes is still null
+  if (!notes) { 
+    return null 
+  }
 
   console.log('render', notes.length, 'notes')
 
@@ -65,7 +70,7 @@ const App = () => {
         )
         setTimeout(() => {
           setErrorMessage(null)
-        })
+        }, 5000)
         setNotes(notes.filter(n => n.id !== id))
       })
   }
