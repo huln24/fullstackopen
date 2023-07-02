@@ -3,23 +3,16 @@ import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Person from './components/Person'
 import phonebookService from './services/phonebook'
+import Notification from './components/Notification'
 
-
-const NewCounter = () => {
-  let x = 100
-  return function() {
-    x = x + 1;
-    return x;
-  }
-}
-
-let Counter = NewCounter();
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [search, setSearch] = useState('')
+  const [message, setMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
   useEffect(() => {
     phonebookService
@@ -35,8 +28,7 @@ const App = () => {
     event.preventDefault()
     const personObject = {
       name: newName,
-      number: newNumber,
-      id: Counter()
+      number: newNumber
     }
 
     if (!persons.some(person => person.name === personObject.name)) {
@@ -46,6 +38,10 @@ const App = () => {
           setPersons(persons.concat(returnedPhonebook))
           setNewName('')
           setNewNumber('')
+          setMessage(`Added ${newName}`)
+          setTimeout(() => {
+            setMessage(null)
+          }, 5000)
         })
     }
     else {
@@ -57,6 +53,12 @@ const App = () => {
           .then(returnedPerson => {
             setPersons(persons.map(p => p.id !== person.id ? p : returnedPerson))
           })
+          .catch(error => {
+            setErrorMessage(`Information of ${person.name} has already been removed from server`)
+          })
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
       }
       setNewName('')
       setNewNumber('')
@@ -97,6 +99,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification class_={'msg'} message={message}/>
+      <Notification class_={'error'} message={errorMessage}/>
       <Filter handleSearch={handleSearch}/>
       <PersonForm 
         addPerson={addPerson} 
