@@ -16,39 +16,9 @@
       "important": true
     },
     {
-      "content": "dfsd",
+      "content": "bla",
       "important": true,
       "id": 4
-    },
-    {
-      "content": "fdfsd",
-      "important": false,
-      "id": 5
-    },
-    {
-      "content": "hello",
-      "important": false,
-      "id": 6
-    },
-    {
-      "content": "qwewq",
-      "important": false,
-      "id": 7
-    },
-    {
-      "content": "fdf",
-      "important": false,
-      "id": 8
-    },
-    {
-      "content": "hello",
-      "important": false,
-      "id": 9
-    },
-    {
-      "content": "gfd",
-      "important": true,
-      "id": 10
     }
   ]
 }
